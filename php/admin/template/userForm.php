@@ -6,7 +6,7 @@ $users = getUser($dbc, $_GET['id']);
 ?>
 
 	<div class="col-md-7">
-		<form action="#" method="post">
+		<form action="index.php?page=users" method="post">
 			 <div class="form-group">
 				<label>First Name</label>
 				 <input class="form-control"  name="first" value = "<?php if(isset($_GET['id'])){echo $users['first'];}?>"placeholder="First Name">
@@ -35,7 +35,7 @@ $users = getUser($dbc, $_GET['id']);
 				 <div class="form-group">
 					<label><?php if(isset($_GET['id'])){echo"Update Status";} else{echo"select status";}?></label>			        
 					<select name="status">
-					  <option value="">Select</option>
+					  <option value="<?php if(isset($_GET['id'])){echo $users['status'];}?>">Select</option>
 					  <option value="1">Active</option>
 					  <option value="0">Not Active</option>					  
 					</select>

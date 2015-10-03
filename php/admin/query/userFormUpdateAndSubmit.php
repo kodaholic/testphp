@@ -21,7 +21,7 @@ if(isset($_POST['submitted']) == 1){
 	}
 	// folowing condition checks if an existing page is being updated that has been loaded into the form or a new page is being added.	
 	if($_POST['userid'] != ''){
-    $q = "UPDATE users SET first = '$first', last = '$last', email = '$email', $passwordString status = $status WHERE id = '$_GET[id]'";
+    $q = "UPDATE users SET first = '$first', last = '$last', email = '$email', $passwordString status = $status WHERE id = '$_POST[userid]'";
 	} else {
 	        	
     $q = "INSERT INTO users (first, last, email, password, status) values ('$first' , '$last','$email','$password',$status)";
