@@ -8,6 +8,7 @@ if(isset($_POST['submitted']) == 1){
 	$email = mysqli_real_escape_string($dbc, $_POST['email']);
 	$password = sha1('$_POST[password]');
 	$status = $_POST['status'];
+
 	switch ($status) {
 		case '': $status = 1;			
 			break;
@@ -16,17 +17,35 @@ if(isset($_POST['submitted']) == 1){
 		case '1': $status = 1;			
 			break;		
 	}
-	if($_POST['password'] !=''){
-	$passwordString = "password=sha1('$_POST[password]'),";
-	}
+
+	// To varify if the password matches in both field.
+    if($_POST['password']===$_POST['passwordV']){ $varify = true;} else {$varify = false;}
+	
+	if($_POST['password'] !='' && $varify==true){
+	   {$passwordString = "password=sha1('$_POST[password]'),";}	
+	} 
+	if($_POST['password'] !='' && $varify==false){
+	   {$passwordString = "404";}	
+	}	
+
 	// folowing condition checks if an existing page is being updated that has been loaded into the form or a new page is being added.	
 	if($_POST['userid'] != ''){
     $q = "UPDATE users SET first = '$first', last = '$last', email = '$email', $passwordString status = $status WHERE id = '$_POST[userid]'";
 	} else {
-	        	
+	 if($varify==true) {      	
     $q = "INSERT INTO users (first, last, email, password, status) values ('$first' , '$last','$email','$password',$status)";
+    }
 	}
     
-  mysqli_query($dbc, $q);
+  $result = mysqli_query($dbc, $q);
+  
+  // gives the user a feedback after submission.
+  if($result){
+  	$message = "<P class=\"alert alert-success\">User has been submitted.</P>";
+
+  } else{
+  	$message = "<P class=\"alert alert alert-danger\">Opps! there was a problem!</P>".mysqli_error($dbc);
+      if($passwordString == "404" ) {$message = "<P class=\"alert alert-danger\">Password fields didn't match!</P>"; }
+  }
 }
 ?>

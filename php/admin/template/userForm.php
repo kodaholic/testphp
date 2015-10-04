@@ -4,8 +4,12 @@ $users = getUser($dbc, $_GET['id']);
 }
 
 ?>
-
 	<div class="col-md-7">
+		  <?php
+              // feedback to the user about form submission.
+                if(isset($message)){echo $message;}
+          ?>
+
 		<form action="index.php?page=users" method="post">
 			 <div class="form-group">
 				<label>First Name</label>
@@ -20,9 +24,13 @@ $users = getUser($dbc, $_GET['id']);
 				 <input class="form-control" name="email" value = "<?php if(isset($_GET['id'])){echo $users['email'];}?>" placeholder="Email">
 			</div>						
 			 <div class="form-group">
-				<label>password</label>
-				 <input class="form-control" name="password" placeholder="password">
+				<label>password <span id="passwordAssist"><?php if(isset($_GET['id'])){echo "(only if you want to change the current password.)";}?></span></label>
+				 <input class="form-control" type="password" name="password" placeholder="password">
 			</div>
+			 <div class="form-group">
+				<label>Retype password</label>
+				 <input class="form-control "type="password" name="passwordV" placeholder="Retype password">
+			</div>			
 			<?php 
 			// following code will hide this section if a new user is being created.
 			if(isset($_GET['id'])){ ?>

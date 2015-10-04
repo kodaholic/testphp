@@ -45,4 +45,7 @@
   #debugConsol pre{
   	height: 700px;
   }
+  #passwordAssist{
+  	color:red; font-size:10px;
+  }
 </style>
