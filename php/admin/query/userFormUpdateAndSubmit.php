@@ -21,6 +21,7 @@ if(isset($_POST['submitted']) == 1){
 	// To varify if the password matches in both field.
     if($_POST['password']===$_POST['passwordV']){ $varify = true;} else {$varify = false;}
 	
+	// for updating existing users password
 	if($_POST['password'] !='' && $varify==true){
 	   {$passwordString = "password=sha1('$_POST[password]'),";}	
 	} 
