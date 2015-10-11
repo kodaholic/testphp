@@ -10,12 +10,23 @@
 
 <script>
 	$(document).ready(function(){
-		
+		// debug button
 		$('#debugConsol').hide();
 		$('#debug').click(function(){
 		$('#debugConsol').toggle();	
 		})
-	})
+		// page delete button
+		$('.btn-delete').on("click",function(){
+			var selected = $(this).attr('id');
+			//var pageId = selected.split("del_").join("");
+			var confirmed = confirm('Are you sure you want to delete this page?');
+				if(confirmed == true){
+			        $.get("ajax/pages.php?id="+selected);
+			        $('#'+selected).remove();				
+				}
+
+		})
+	});
 	
 </script>
 <!-- Tinymce initialisation -->
@@ -43,7 +54,9 @@ tinymce.init({
  }); 
 </script>
 
+<script>
 
+</script>
 
 
 <!--
@@ -55,6 +68,13 @@ tinymce.init({
 
 
 <script>
+$(".btn-delete").on("click",function(){
+	alert("selected");
+	var selected = $(this).attr("id");
+
+
+})
+
 
 $(".list-group-item").hover(
   function () {
